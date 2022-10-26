@@ -129,14 +129,17 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
             object: nil
         )
 
-    var url = URL(string: "https://i.ytimg.com/vi/Y8TqjOsZv_E/maxresdefault.jpg")
+        if let url = URL(string: "https://i.ytimg.com/vi/Y8TqjOsZv_E/maxresdefault.jpg"), let string = String(contentsOf: url) {
+            print (string)
+        }
+    //    var url = URL(string: "https://i.ytimg.com/vi/Y8TqjOsZv_E/maxresdefault.jpg")
     var data = try Data(contentsOf: url)
     var artwork = UIImage(data: data)
          var albumArtWork = MPMediaItemArtwork(image: artwork)
         MPNowPlayingInfoCenter.default().nowPlayingInfo = [
             MPMediaItemPropertyTitle: "Rabbi Meir",
-            MPMediaItemPropertyArtist: "Merkavot Argaman"
-            MPMediaItemPropertyArtwork:albumArtWork             
+            MPMediaItemPropertyArtist: "Merkavot Argaman",
+            MPMediaItemPropertyArtwork:albumArtWork
         ]
         
         _playerObserver._handlers = self
@@ -540,13 +543,16 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
         setPaused(_paused)
         setAllowsExternalPlayback(_allowsExternalPlayback)
 
-    var url = URL(string: "https://i.ytimg.com/vi/Y8TqjOsZv_E/maxresdefault.jpg")
+    if let url = URL(string: "https://i.ytimg.com/vi/Y8TqjOsZv_E/maxresdefault.jpg"), let string = String(contentsOf: url) {
+        print (string)
+    }
+//    var url = URL(string: "https://i.ytimg.com/vi/Y8TqjOsZv_E/maxresdefault.jpg")
     var data = try Data(contentsOf: url)
     var artwork = UIImage(data: data)
          var albumArtWork = MPMediaItemArtwork(image: artwork)
         MPNowPlayingInfoCenter.default().nowPlayingInfo = [
             MPMediaItemPropertyTitle: "Rabbi Meir",
-            MPMediaItemPropertyArtist: "Merkavot Argaman"
+            MPMediaItemPropertyArtist: "Merkavot Argaman",
             MPMediaItemPropertyArtwork:albumArtWork             
         ]
     }
