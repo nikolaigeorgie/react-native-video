@@ -53,6 +53,11 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
     private var _ignoreSilentSwitch:String! = "inherit" // inherit, ignore, obey
     private var _mixWithOthers:String! = "inherit" // inherit, mix, duck
     private var _resizeMode:String! = "AVLayerVideoGravityResizeAspectFill"
+
+    private var _title:String?
+    private var _artist:String?    
+    private var _poster_url:String?
+        
     private var _fullscreen:Bool = false
     private var _fullscreenAutorotate:Bool = true
     private var _fullscreenOrientation:String! = "all"
@@ -129,16 +134,15 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
             object: nil
         )
 
-// var url = URL(string: "https://i.ytimg.com/vi/Y8TqjOsZv_E/maxresdefault.jpg")!
-// //    var url = URL(string: "https://i.ytimg.com/vi/Y8TqjOsZv_E/maxresdefault.jpg")
-//         var data =  try? Data(contentsOf: url)
-//          var artwork = UIImage(data: data!)
-//         var albumArtWork = MPMediaItemArtwork(image: artwork!)
-//         MPNowPlayingInfoCenter.default().nowPlayingInfo = [
-//             MPMediaItemPropertyTitle: "Rabbi Meir",
-//             MPMediaItemPropertyArtist: "Merkavot Argaman",
-//             MPMediaItemPropertyArtwork:albumArtWork             
-//         ]
+   var url = URL(string: "https://i.ytimg.com/vi/Y8TqjOsZv_E/maxresdefault.jpg")
+        var data =  try? Data(contentsOf: url)
+         var artwork = UIImage(data: data!)
+        var albumArtWork = MPMediaItemArtwork(image: artwork!)
+        MPNowPlayingInfoCenter.default().nowPlayingInfo = [
+            MPMediaItemPropertyTitle: _title,
+            MPMediaItemPropertyArtist: _artist,
+            MPMediaItemPropertyArtwork:albumArtWork             
+        ]
         
         _playerObserver._handlers = self
 #if canImport(RCTVideoCache)
@@ -355,6 +359,13 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
         }
         _resizeMode = mode
     }
+
+        @objc
+    func setMedia(_ artist: String?, _ title: String?, _ image: String?) {
+        _title = artist
+        _artist = motitlede
+        _poster_url = image
+    }
     
     @objc
     func setPlayInBackground(_ playInBackground:Bool) {
@@ -423,17 +434,6 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
         }
         
         _paused = paused
-
-        var url = URL(string: "https://i.ytimg.com/vi/Y8TqjOsZv_E/maxresdefault.jpg")!
-//    var url = URL(string: "https://i.ytimg.com/vi/Y8TqjOsZv_E/maxresdefault.jpg")
-        var data =  try? Data(contentsOf: url)
-         var artwork = UIImage(data: data!)
-        var albumArtWork = MPMediaItemArtwork(image: artwork!)
-        MPNowPlayingInfoCenter.default().nowPlayingInfo = [
-            MPMediaItemPropertyTitle: "Rabbi Meir",
-            MPMediaItemPropertyArtist: "Merkavot Argaman",
-            MPMediaItemPropertyArtwork:albumArtWork             
-        ]
     }
     
     @objc
@@ -552,16 +552,16 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
         setPaused(_paused)
         setAllowsExternalPlayback(_allowsExternalPlayback)
 
-// var url = URL(string: "https://i.ytimg.com/vi/Y8TqjOsZv_E/maxresdefault.jpg")!
-// //    var url = URL(string: "https://i.ytimg.com/vi/Y8TqjOsZv_E/maxresdefault.jpg")
-//         var data =  try? Data(contentsOf: url)
-//          var artwork = UIImage(data: data!)
-//         var albumArtWork = MPMediaItemArtwork(image: artwork!)
-//         MPNowPlayingInfoCenter.default().nowPlayingInfo = [
-//             MPMediaItemPropertyTitle: "Rabbi Meir",
-//             MPMediaItemPropertyArtist: "Merkavot Argaman",
-//             MPMediaItemPropertyArtwork:albumArtWork             
-//         ]
+//   var url = URL(string: _poster_url)!
+   var url = URL(string: "https://i.ytimg.com/vi/Y8TqjOsZv_E/maxresdefault.jpg")
+        var data =  try? Data(contentsOf: url)
+         var artwork = UIImage(data: data!)
+        var albumArtWork = MPMediaItemArtwork(image: artwork!)
+        MPNowPlayingInfoCenter.default().nowPlayingInfo = [
+            MPMediaItemPropertyTitle: _title,
+            MPMediaItemPropertyArtist: _artist,
+            MPMediaItemPropertyArtwork:albumArtWork             
+        ]
     }
     
     @objc
@@ -1000,6 +1000,18 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
                           "audioTracks": RCTVideoUtils.getAudioTrackInfo(_player),
                           "textTracks": _textTracks ?? RCTVideoUtils.getTextTrackInfo(_player),
                           "target": reactTag as Any])
+
+  var url = URL(string: "https://i.ytimg.com/vi/Y8TqjOsZv_E/maxresdefault.jpg")!
+//    var url = URL(string: "https://i.ytimg.com/vi/Y8TqjOsZv_E/maxresdefault.jpg")
+        var data =  try? Data(contentsOf: url)
+         var artwork = UIImage(data: data!)
+        var albumArtWork = MPMediaItemArtwork(image: artwork!)
+        MPNowPlayingInfoCenter.default().nowPlayingInfo = [
+            MPMediaItemPropertyTitle: "Rabbi Meir",
+            MPMediaItemPropertyArtist: "Merkavot Argaman",
+            MPMediaItemPropertyArtwork:albumArtWork             
+        ]
+
         }
         _videoLoadStarted = false
         _playerObserver.attachPlayerEventListeners()
