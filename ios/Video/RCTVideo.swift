@@ -128,6 +128,17 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
             name: AVAudioSession.routeChangeNotification,
             object: nil
         )
+
+    var url = URL(string: "https://i.ytimg.com/vi/Y8TqjOsZv_E/maxresdefault.jpg")
+    var data = try Data(contentsOf: url)
+    var artwork = UIImage(data: data)
+         var albumArtWork = MPMediaItemArtwork(image: artwork)
+        MPNowPlayingInfoCenter.default().nowPlayingInfo = [
+            MPMediaItemPropertyTitle: "Rabbi Meir",
+            MPMediaItemPropertyArtist: "Merkavot Argaman"
+            MPMediaItemPropertyArtwork:albumArtWork             
+        ]
+        
         _playerObserver._handlers = self
 #if canImport(RCTVideoCache)
         _videoCache.playerItemPrepareText = playerItemPrepareText
@@ -298,21 +309,6 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
                     "target": self.reactTag
                 ])
 
-// MPNowPlayingInfoCenter.default().nowPlayingInfo = [
-//     MPMediaItemPropertyTitle: "Rabbi Meir",
-//     MPMediaItemPropertyArtist: "Merkavot Argaman"
-// ]
-
-    // UIApplication.SharedApplication.BeginReceivingRemoteControlEvents();
-    // AVAudioSession.SharedInstance().SetActive(true);
-    // AVAudioSession.SharedInstance().SetCategory(AVAudioSessionCategory.Playback);
-    // MPNowPlayingInfo nowPlayingInfo;
-    // nowPlayingInfo = new MPNowPlayingInfo();
-    // nowPlayingInfo.Artist = "An OK Band";
-    // nowPlayingInfo.Title = "Our First Single!";
-    // MPNowPlayingInfoCenter.DefaultCenter.NowPlaying = nowPlayingInfo;
-    
-
             }.catch{_ in }
         _videoLoadStarted = true
     }
@@ -410,27 +406,22 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
     
     @objc
     func setPaused(_ paused:Bool) {
-        MPNowPlayingInfoCenter.default().nowPlayingInfo = [
-    MPMediaItemPropertyTitle: "Rabbi Meir",
-    MPMediaItemPropertyArtist: "Merkavot Argaman"
-]
-
-        // if paused {
-        //     _player?.pause()
-        //     _player?.rate = 0.0
-        // } else {
-        //     RCTPlayerOperations.configureAudio(ignoreSilentSwitch:_ignoreSilentSwitch, mixWithOthers:_mixWithOthers)
+        if paused {
+            _player?.pause()
+            _player?.rate = 0.0
+        } else {
+            RCTPlayerOperations.configureAudio(ignoreSilentSwitch:_ignoreSilentSwitch, mixWithOthers:_mixWithOthers)
             
-        //     if #available(iOS 10.0, *), !_automaticallyWaitsToMinimizeStalling {
-        //         _player?.playImmediately(atRate: _rate)
-        //     } else {
-        //         _player?.play()
-        //         _player?.rate = _rate
-        //     }
-        //     _player?.rate = _rate
-        // }
+            if #available(iOS 10.0, *), !_automaticallyWaitsToMinimizeStalling {
+                _player?.playImmediately(atRate: _rate)
+            } else {
+                _player?.play()
+                _player?.rate = _rate
+            }
+            _player?.rate = _rate
+        }
         
-        // _paused = paused
+        _paused = paused
     }
     
     @objc
@@ -548,6 +539,16 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
         setControls(_controls)
         setPaused(_paused)
         setAllowsExternalPlayback(_allowsExternalPlayback)
+
+    var url = URL(string: "https://i.ytimg.com/vi/Y8TqjOsZv_E/maxresdefault.jpg")
+    var data = try Data(contentsOf: url)
+    var artwork = UIImage(data: data)
+         var albumArtWork = MPMediaItemArtwork(image: artwork)
+        MPNowPlayingInfoCenter.default().nowPlayingInfo = [
+            MPMediaItemPropertyTitle: "Rabbi Meir",
+            MPMediaItemPropertyArtist: "Merkavot Argaman"
+            MPMediaItemPropertyArtwork:albumArtWork             
+        ]
     }
     
     @objc
@@ -989,10 +990,7 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
         }
         _videoLoadStarted = false
         _playerObserver.attachPlayerEventListeners()
-        MPNowPlayingInfoCenter.default().nowPlayingInfo = [
-    MPMediaItemPropertyTitle: "Rabbi Meir",
-    MPMediaItemPropertyArtist: "Merkavot Argaman"
-]
+
         applyModifiers()
     }
     
