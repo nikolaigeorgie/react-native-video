@@ -129,16 +129,16 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
             object: nil
         )
 
-var url = URL(string: "https://i.ytimg.com/vi/Y8TqjOsZv_E/maxresdefault.jpg")!
-//    var url = URL(string: "https://i.ytimg.com/vi/Y8TqjOsZv_E/maxresdefault.jpg")
-        var data =  try? Data(contentsOf: url)
-         var artwork = UIImage(data: data!)
-        var albumArtWork = MPMediaItemArtwork(image: artwork!)
-        MPNowPlayingInfoCenter.default().nowPlayingInfo = [
-            MPMediaItemPropertyTitle: "Rabbi Meir",
-            MPMediaItemPropertyArtist: "Merkavot Argaman",
-            MPMediaItemPropertyArtwork:albumArtWork             
-        ]
+// var url = URL(string: "https://i.ytimg.com/vi/Y8TqjOsZv_E/maxresdefault.jpg")!
+// //    var url = URL(string: "https://i.ytimg.com/vi/Y8TqjOsZv_E/maxresdefault.jpg")
+//         var data =  try? Data(contentsOf: url)
+//          var artwork = UIImage(data: data!)
+//         var albumArtWork = MPMediaItemArtwork(image: artwork!)
+//         MPNowPlayingInfoCenter.default().nowPlayingInfo = [
+//             MPMediaItemPropertyTitle: "Rabbi Meir",
+//             MPMediaItemPropertyArtist: "Merkavot Argaman",
+//             MPMediaItemPropertyArtwork:albumArtWork             
+//         ]
         
         _playerObserver._handlers = self
 #if canImport(RCTVideoCache)
@@ -423,6 +423,17 @@ var url = URL(string: "https://i.ytimg.com/vi/Y8TqjOsZv_E/maxresdefault.jpg")!
         }
         
         _paused = paused
+
+        var url = URL(string: "https://i.ytimg.com/vi/Y8TqjOsZv_E/maxresdefault.jpg")!
+//    var url = URL(string: "https://i.ytimg.com/vi/Y8TqjOsZv_E/maxresdefault.jpg")
+        var data =  try? Data(contentsOf: url)
+         var artwork = UIImage(data: data!)
+        var albumArtWork = MPMediaItemArtwork(image: artwork!)
+        MPNowPlayingInfoCenter.default().nowPlayingInfo = [
+            MPMediaItemPropertyTitle: "Rabbi Meir",
+            MPMediaItemPropertyArtist: "Merkavot Argaman",
+            MPMediaItemPropertyArtwork:albumArtWork             
+        ]
     }
     
     @objc
@@ -541,16 +552,16 @@ var url = URL(string: "https://i.ytimg.com/vi/Y8TqjOsZv_E/maxresdefault.jpg")!
         setPaused(_paused)
         setAllowsExternalPlayback(_allowsExternalPlayback)
 
-var url = URL(string: "https://i.ytimg.com/vi/Y8TqjOsZv_E/maxresdefault.jpg")!
-//    var url = URL(string: "https://i.ytimg.com/vi/Y8TqjOsZv_E/maxresdefault.jpg")
-        var data =  try? Data(contentsOf: url)
-         var artwork = UIImage(data: data!)
-        var albumArtWork = MPMediaItemArtwork(image: artwork!)
-        MPNowPlayingInfoCenter.default().nowPlayingInfo = [
-            MPMediaItemPropertyTitle: "Rabbi Meir",
-            MPMediaItemPropertyArtist: "Merkavot Argaman",
-            MPMediaItemPropertyArtwork:albumArtWork             
-        ]
+// var url = URL(string: "https://i.ytimg.com/vi/Y8TqjOsZv_E/maxresdefault.jpg")!
+// //    var url = URL(string: "https://i.ytimg.com/vi/Y8TqjOsZv_E/maxresdefault.jpg")
+//         var data =  try? Data(contentsOf: url)
+//          var artwork = UIImage(data: data!)
+//         var albumArtWork = MPMediaItemArtwork(image: artwork!)
+//         MPNowPlayingInfoCenter.default().nowPlayingInfo = [
+//             MPMediaItemPropertyTitle: "Rabbi Meir",
+//             MPMediaItemPropertyArtist: "Merkavot Argaman",
+//             MPMediaItemPropertyArtwork:albumArtWork             
+//         ]
     }
     
     @objc
