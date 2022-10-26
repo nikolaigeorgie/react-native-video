@@ -129,17 +129,15 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
             object: nil
         )
 
-        if let url = URL(string: "https://i.ytimg.com/vi/Y8TqjOsZv_E/maxresdefault.jpg"), let string = String(contentsOf: url) {
-            print (string)
-        }
-    //    var url = URL(string: "https://i.ytimg.com/vi/Y8TqjOsZv_E/maxresdefault.jpg")
-    var data = try Data(contentsOf: url)
-    var artwork = UIImage(data: data)
-         var albumArtWork = MPMediaItemArtwork(image: artwork)
+var url = URL(string: "https://i.ytimg.com/vi/Y8TqjOsZv_E/maxresdefault.jpg")!
+//    var url = URL(string: "https://i.ytimg.com/vi/Y8TqjOsZv_E/maxresdefault.jpg")
+        var data =  try? Data(contentsOf: url)
+         var artwork = UIImage(data: data!)
+        var albumArtWork = MPMediaItemArtwork(image: artwork!)
         MPNowPlayingInfoCenter.default().nowPlayingInfo = [
             MPMediaItemPropertyTitle: "Rabbi Meir",
             MPMediaItemPropertyArtist: "Merkavot Argaman",
-            MPMediaItemPropertyArtwork:albumArtWork
+            MPMediaItemPropertyArtwork:albumArtWork             
         ]
         
         _playerObserver._handlers = self
@@ -543,13 +541,11 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
         setPaused(_paused)
         setAllowsExternalPlayback(_allowsExternalPlayback)
 
-    if let url = URL(string: "https://i.ytimg.com/vi/Y8TqjOsZv_E/maxresdefault.jpg"), let string = String(contentsOf: url) {
-        print (string)
-    }
+var url = URL(string: "https://i.ytimg.com/vi/Y8TqjOsZv_E/maxresdefault.jpg")!
 //    var url = URL(string: "https://i.ytimg.com/vi/Y8TqjOsZv_E/maxresdefault.jpg")
-    var data = try Data(contentsOf: url)
-    var artwork = UIImage(data: data)
-         var albumArtWork = MPMediaItemArtwork(image: artwork)
+        var data =  try? Data(contentsOf: url)
+         var artwork = UIImage(data: data!)
+        var albumArtWork = MPMediaItemArtwork(image: artwork!)
         MPNowPlayingInfoCenter.default().nowPlayingInfo = [
             MPMediaItemPropertyTitle: "Rabbi Meir",
             MPMediaItemPropertyArtist: "Merkavot Argaman",
