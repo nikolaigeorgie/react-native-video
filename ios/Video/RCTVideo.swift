@@ -3,6 +3,7 @@ import AVKit
 import Foundation
 import React
 import Promises
+import MediaPlayer
 
 class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverHandler {
 
@@ -219,12 +220,6 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
     @objc
     func setSrc(_ source:NSDictionary!) {
         _source = VideoSource(source)
-        if (_source?.uri == nil || _source?.uri == "") {
-            DispatchQueue.global(qos: .default).async {
-                self._player?.replaceCurrentItem(with: nil)
-            }
-            return;
-        }
         removePlayerLayer()
         _playerObserver.player = nil
         _playerObserver.playerItem = nil
@@ -302,6 +297,22 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
                     "drm": self._drm?.json ?? NSNull(),
                     "target": self.reactTag
                 ])
+
+// MPNowPlayingInfoCenter.default().nowPlayingInfo = [
+//     MPMediaItemPropertyTitle: "Rabbi Meir",
+//     MPMediaItemPropertyArtist: "Merkavot Argaman"
+// ]
+
+    // UIApplication.SharedApplication.BeginReceivingRemoteControlEvents();
+    // AVAudioSession.SharedInstance().SetActive(true);
+    // AVAudioSession.SharedInstance().SetCategory(AVAudioSessionCategory.Playback);
+    // MPNowPlayingInfo nowPlayingInfo;
+    // nowPlayingInfo = new MPNowPlayingInfo();
+    // nowPlayingInfo.Artist = "An OK Band";
+    // nowPlayingInfo.Title = "Our First Single!";
+    // MPNowPlayingInfoCenter.DefaultCenter.NowPlaying = nowPlayingInfo;
+    
+
             }.catch{_ in }
         _videoLoadStarted = true
     }
@@ -399,22 +410,27 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
     
     @objc
     func setPaused(_ paused:Bool) {
-        if paused {
-            _player?.pause()
-            _player?.rate = 0.0
-        } else {
-            RCTPlayerOperations.configureAudio(ignoreSilentSwitch:_ignoreSilentSwitch, mixWithOthers:_mixWithOthers)
+        MPNowPlayingInfoCenter.default().nowPlayingInfo = [
+    MPMediaItemPropertyTitle: "Rabbi Meir",
+    MPMediaItemPropertyArtist: "Merkavot Argaman"
+]
+
+        // if paused {
+        //     _player?.pause()
+        //     _player?.rate = 0.0
+        // } else {
+        //     RCTPlayerOperations.configureAudio(ignoreSilentSwitch:_ignoreSilentSwitch, mixWithOthers:_mixWithOthers)
             
-            if #available(iOS 10.0, *), !_automaticallyWaitsToMinimizeStalling {
-                _player?.playImmediately(atRate: _rate)
-            } else {
-                _player?.play()
-                _player?.rate = _rate
-            }
-            _player?.rate = _rate
-        }
+        //     if #available(iOS 10.0, *), !_automaticallyWaitsToMinimizeStalling {
+        //         _player?.playImmediately(atRate: _rate)
+        //     } else {
+        //         _player?.play()
+        //         _player?.rate = _rate
+        //     }
+        //     _player?.rate = _rate
+        // }
         
-        _paused = paused
+        // _paused = paused
     }
     
     @objc
@@ -581,6 +597,7 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
     
     @objc
     func setFullscreen(_ fullscreen:Bool) {
+        
         if fullscreen && !_fullscreenPlayerPresented && _player != nil {
             // Ensure player view controller is not null
             if _playerViewController == nil {
@@ -972,6 +989,10 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
         }
         _videoLoadStarted = false
         _playerObserver.attachPlayerEventListeners()
+        MPNowPlayingInfoCenter.default().nowPlayingInfo = [
+    MPMediaItemPropertyTitle: "Rabbi Meir",
+    MPMediaItemPropertyArtist: "Merkavot Argaman"
+]
         applyModifiers()
     }
     
