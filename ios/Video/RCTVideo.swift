@@ -352,16 +352,9 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
 
     @objc
     func setMedia(__ media:NSDictionary!) {
-    //  artist: String?, _ title: String?, _ image: String?) {
-        if let title = media.title {
-            _title = media.title
-        }
-        if let image = media.image {
-            _poster_url = media.image
-        }
-        if let artist = media.artist {
-            _artist = media.artist
-        }
+        _title = media["title"] as? String
+        _poster_url = media["image"] as? String
+        _artist = media["artist"] as? String
     }
     
     @objc
@@ -990,7 +983,7 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
 
         
         var url = URL(string: "https://i.ytimg.com/vi/Y8TqjOsZv_E/maxresdefault.jpg")
-        var data =  try? Data(contentsOf: url)
+            var data =  try? Data(contentsOf: url!)
          var artwork = UIImage(data: data!)
         var albumArtWork = MPMediaItemArtwork(image: artwork!)
         MPNowPlayingInfoCenter.default().nowPlayingInfo = [
