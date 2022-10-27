@@ -350,12 +350,18 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
         _resizeMode = mode
     }
 
-        @objc
+    @objc
     func setMedia(__ media:NSDictionary!) {
     //  artist: String?, _ title: String?, _ image: String?) {
-        _title = media.title
-        _artist = media.artist
-        _poster_url = media.image
+        if let title = media.title {
+            _title = media.title
+        }
+        if let image = media.image {
+            _poster_url = media.image
+        }
+        if let artist = media.artist {
+            _artist = media.artist
+        }
     }
     
     @objc
