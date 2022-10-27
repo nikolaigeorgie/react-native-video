@@ -133,16 +133,6 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
             name: AVAudioSession.routeChangeNotification,
             object: nil
         )
-
-   var url = URL(string: "https://i.ytimg.com/vi/Y8TqjOsZv_E/maxresdefault.jpg")
-        var data =  try? Data(contentsOf: url)
-         var artwork = UIImage(data: data!)
-        var albumArtWork = MPMediaItemArtwork(image: artwork!)
-        MPNowPlayingInfoCenter.default().nowPlayingInfo = [
-            MPMediaItemPropertyTitle: _title,
-            MPMediaItemPropertyArtist: _artist,
-            MPMediaItemPropertyArtwork:albumArtWork             
-        ]
         
         _playerObserver._handlers = self
 #if canImport(RCTVideoCache)
@@ -361,10 +351,11 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
     }
 
         @objc
-    func setMedia(_ artist: String?, _ title: String?, _ image: String?) {
-        _title = artist
-        _artist = motitlede
-        _poster_url = image
+    func setMedia(__ media:NSDictionary!) {
+    //  artist: String?, _ title: String?, _ image: String?) {
+        _title = media.title
+        _artist = media.artist
+        _poster_url = media.image
     }
     
     @objc
@@ -552,16 +543,6 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
         setPaused(_paused)
         setAllowsExternalPlayback(_allowsExternalPlayback)
 
-//   var url = URL(string: _poster_url)!
-   var url = URL(string: "https://i.ytimg.com/vi/Y8TqjOsZv_E/maxresdefault.jpg")
-        var data =  try? Data(contentsOf: url)
-         var artwork = UIImage(data: data!)
-        var albumArtWork = MPMediaItemArtwork(image: artwork!)
-        MPNowPlayingInfoCenter.default().nowPlayingInfo = [
-            MPMediaItemPropertyTitle: _title,
-            MPMediaItemPropertyArtist: _artist,
-            MPMediaItemPropertyArtwork:albumArtWork             
-        ]
     }
     
     @objc
@@ -1001,14 +982,14 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
                           "textTracks": _textTracks ?? RCTVideoUtils.getTextTrackInfo(_player),
                           "target": reactTag as Any])
 
-  var url = URL(string: "https://i.ytimg.com/vi/Y8TqjOsZv_E/maxresdefault.jpg")!
-//    var url = URL(string: "https://i.ytimg.com/vi/Y8TqjOsZv_E/maxresdefault.jpg")
+        
+        var url = URL(string: "https://i.ytimg.com/vi/Y8TqjOsZv_E/maxresdefault.jpg")
         var data =  try? Data(contentsOf: url)
          var artwork = UIImage(data: data!)
         var albumArtWork = MPMediaItemArtwork(image: artwork!)
         MPNowPlayingInfoCenter.default().nowPlayingInfo = [
-            MPMediaItemPropertyTitle: "Rabbi Meir",
-            MPMediaItemPropertyArtist: "Merkavot Argaman",
+            MPMediaItemPropertyTitle: _title,
+            MPMediaItemPropertyArtist: _artist,
             MPMediaItemPropertyArtwork:albumArtWork             
         ]
 
