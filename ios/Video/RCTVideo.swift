@@ -548,9 +548,8 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
          var artwork = UIImage(data: data!)
         var albumArtWork = MPMediaItemArtwork(image: artwork!)
         MPNowPlayingInfoCenter.default().nowPlayingInfo = [
-            // MPMediaItemPropertyTitle: _title,
+            MPMediaItemPropertyTitle: _title,
             // MPMediaItemPropertyArtist: _artist,
-            MPMediaItemPropertyTitle: "Rabbi Meir Eliyahu",
             MPMediaItemPropertyArtist: "Merkavot Argaman",
             MPMediaItemPropertyArtwork:albumArtWork             
         ]
@@ -995,17 +994,17 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
                           "target": reactTag as Any])
 
         
-        var url = URL(string: "https://i.ytimg.com/vi/Y8TqjOsZv_E/maxresdefault.jpg")
-            var data =  try? Data(contentsOf: url!)
-         var artwork = UIImage(data: data!)
-        var albumArtWork = MPMediaItemArtwork(image: artwork!)
-        MPNowPlayingInfoCenter.default().nowPlayingInfo = [
-            // MPMediaItemPropertyTitle: _title,
-            // MPMediaItemPropertyArtist: _artist,
-            MPMediaItemPropertyTitle: "Rabbi Meir Eliyahu",
-            MPMediaItemPropertyArtist: "Merkavot Argaman",
-            MPMediaItemPropertyArtwork:albumArtWork             
-        ]
+        // var url = URL(string: "https://i.ytimg.com/vi/Y8TqjOsZv_E/maxresdefault.jpg")
+        //     var data =  try? Data(contentsOf: url!)
+        //  var artwork = UIImage(data: data!)
+        // var albumArtWork = MPMediaItemArtwork(image: artwork!)
+        // MPNowPlayingInfoCenter.default().nowPlayingInfo = [
+        //     // MPMediaItemPropertyTitle: _title,
+        //     // MPMediaItemPropertyArtist: _artist,
+        //     MPMediaItemPropertyTitle: "Rabbi Meir Eliyahu",
+        //     MPMediaItemPropertyArtist: "Merkavot Argaman",
+        //     MPMediaItemPropertyArtwork:albumArtWork             
+        // ]
 
         }
         _videoLoadStarted = false
