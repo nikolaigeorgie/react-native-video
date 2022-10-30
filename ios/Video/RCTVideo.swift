@@ -306,8 +306,10 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
          var artwork = UIImage(data: data!)
         var albumArtWork = MPMediaItemArtwork(image: artwork!)
         MPNowPlayingInfoCenter.default().nowPlayingInfo = [
-            MPMediaItemPropertyTitle: self._source?.title ?? NSNull(),
-            MPMediaItemPropertyArtist: self._source?.artist ?? NSNull(),
+            MPMediaItemPropertyTitle: "Rabbi Meir",
+            // MPMediaItemPropertyTitle: self._source?.title ?? NSNull(),
+            // MPMediaItemPropertyArtist: self._source?.artist ?? NSNull(),
+            MPMediaItemPropertyArtist: "Rabbi Meir"
             MPMediaItemPropertyArtwork:albumArtWork             
         ]
         
