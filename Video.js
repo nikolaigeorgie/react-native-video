@@ -308,10 +308,12 @@ export default class Video extends Component {
     Object.assign(nativeProps, {
       style: [styles.base, nativeProps.style],
       resizeMode: nativeResizeMode,
-      media: this.props.media,
       src: {
         uri,
         isNetwork,
+        title: source?.title,
+        artist: source?.artist,
+        image: source?.image,
         isAsset,
         shouldCache,
         type: source.type || '',
@@ -388,7 +390,6 @@ Video.propTypes = {
   filterEnabled: PropTypes.bool,
   /* Native only */
   src: PropTypes.object,
-  media: PropTypes.object,
   seek: PropTypes.oneOfType([
     PropTypes.number,
     PropTypes.object,

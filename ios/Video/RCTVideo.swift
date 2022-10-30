@@ -54,10 +54,6 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
     private var _mixWithOthers:String! = "inherit" // inherit, mix, duck
     private var _resizeMode:String! = "AVLayerVideoGravityResizeAspectFill"
 
-    private var _title:String?
-    private var _artist:String?    
-    private var _poster_url:String?
-        
     private var _fullscreen:Bool = false
     private var _fullscreenAutorotate:Bool = true
     private var _fullscreenOrientation:String! = "all"
@@ -303,7 +299,18 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
                     "drm": self._drm?.json ?? NSNull(),
                     "target": self.reactTag
                 ])
+                // here 
 
+        var url = URL(string: "https://i.ytimg.com/vi/Y8TqjOsZv_E/maxresdefault.jpg")
+            var data =  try? Data(contentsOf: url!)
+         var artwork = UIImage(data: data!)
+        var albumArtWork = MPMediaItemArtwork(image: artwork!)
+        MPNowPlayingInfoCenter.default().nowPlayingInfo = [
+            MPMediaItemPropertyTitle: self._source?.title ?? NSNull(),
+            MPMediaItemPropertyArtist: self._source?.artist ?? NSNull(),
+            MPMediaItemPropertyArtwork:albumArtWork             
+        ]
+        
             }.catch{_ in }
         _videoLoadStarted = true
     }
@@ -348,13 +355,6 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
             _playerLayer?.videoGravity = AVLayerVideoGravity(rawValue: mode ?? "")
         }
         _resizeMode = mode
-    }
-
-    @objc
-    func setMedia(__ media:NSDictionary!) {
-        _title = media["title"] as? String
-        _poster_url = media["image"] as? String
-        _artist = media["artist"] as? String
     }
     
     @objc
@@ -541,18 +541,6 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
         setControls(_controls)
         setPaused(_paused)
         setAllowsExternalPlayback(_allowsExternalPlayback)
-
-   
-        var url = URL(string: "https://i.ytimg.com/vi/Y8TqjOsZv_E/maxresdefault.jpg")
-            var data =  try? Data(contentsOf: url!)
-         var artwork = UIImage(data: data!)
-        var albumArtWork = MPMediaItemArtwork(image: artwork!)
-        MPNowPlayingInfoCenter.default().nowPlayingInfo = [
-            MPMediaItemPropertyTitle: _title,
-            // MPMediaItemPropertyArtist: _artist,
-            MPMediaItemPropertyArtist: "Merkavot Argaman",
-            MPMediaItemPropertyArtwork:albumArtWork             
-        ]
         
     }
     
