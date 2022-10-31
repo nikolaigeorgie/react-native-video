@@ -309,7 +309,7 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
             MPMediaItemPropertyTitle: "Rabbi Meir",
             // MPMediaItemPropertyTitle: self._source?.title ?? NSNull(),
             // MPMediaItemPropertyArtist: self._source?.artist ?? NSNull(),
-            MPMediaItemPropertyArtist: "Rabbi Meir"
+            MPMediaItemPropertyArtist: "Rabbi Meir",
             MPMediaItemPropertyArtwork:albumArtWork             
         ]
         
