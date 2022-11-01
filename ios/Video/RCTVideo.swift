@@ -47,6 +47,7 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
     private var _selectedAudioTrackCriteria:SelectedTrackCriteria?
     private var _playbackStalled:Bool = false
     private var _playInBackground:Bool = false
+    private var _title: String!    
     private var _preventsDisplaySleepDuringVideoPlayback:Bool = true
     private var _preferredForwardBufferDuration:Float = 0.0
     private var _playWhenInactive:Bool = false
@@ -225,6 +226,7 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
         removePlayerLayer()
         _playerObserver.player = nil
         _playerObserver.playerItem = nil
+        _title = self._source?.title ?? NSNull()
         
         // perform on next run loop, otherwise other passed react-props may not be set
         RCTVideoUtils.delay()
@@ -299,19 +301,6 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
                     "drm": self._drm?.json ?? NSNull(),
                     "target": self.reactTag
                 ])
-                // here 
-
-        var url = URL(string: "https://i.ytimg.com/vi/Y8TqjOsZv_E/maxresdefault.jpg")
-            var data =  try? Data(contentsOf: url!)
-         var artwork = UIImage(data: data!)
-        var albumArtWork = MPMediaItemArtwork(image: artwork!)
-        MPNowPlayingInfoCenter.default().nowPlayingInfo = [
-            MPMediaItemPropertyTitle: "Rabbi Meir",
-            // MPMediaItemPropertyTitle: self._source?.title ?? NSNull(),
-            // MPMediaItemPropertyArtist: self._source?.artist ?? NSNull(),
-            MPMediaItemPropertyArtist: "Rabbi Meir",
-            MPMediaItemPropertyArtwork:albumArtWork             
-        ]
         
             }.catch{_ in }
         _videoLoadStarted = true
@@ -544,6 +533,18 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
         setPaused(_paused)
         setAllowsExternalPlayback(_allowsExternalPlayback)
         
+            var url = URL(string: "https://i.ytimg.com/vi/Y8TqjOsZv_E/maxresdefault.jpg")
+            var data =  try? Data(contentsOf: url!)
+         var artwork = UIImage(data: data!)
+        var albumArtWork = MPMediaItemArtwork(image: artwork!)
+        MPNowPlayingInfoCenter.default().nowPlayingInfo = [
+            MPMediaItemPropertyTitle: _title,
+            // MPMediaItemPropertyTitle: self._source?.title ?? NSNull(),
+            // MPMediaItemPropertyArtist: self._source?.artist ?? NSNull(),
+            MPMediaItemPropertyArtist: "Rabbi Meir",
+            MPMediaItemPropertyArtwork:albumArtWork             
+        ]
+
     }
     
     @objc
