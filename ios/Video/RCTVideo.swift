@@ -226,7 +226,7 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
         removePlayerLayer()
         _playerObserver.player = nil
         _playerObserver.playerItem = nil
-        _title = self._source?.title ?? NSNull()
+        _title = self._source?.title ?? "Rabbi Meir"
         
         // perform on next run loop, otherwise other passed react-props may not be set
         RCTVideoUtils.delay()
