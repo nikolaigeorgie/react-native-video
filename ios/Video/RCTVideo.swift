@@ -47,7 +47,9 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
     private var _selectedAudioTrackCriteria:SelectedTrackCriteria?
     private var _playbackStalled:Bool = false
     private var _playInBackground:Bool = false
-    private var _title: String!    
+    private var _title: String!
+    private var _artist: String!
+    private var _image: String!    
     private var _preventsDisplaySleepDuringVideoPlayback:Bool = true
     private var _preferredForwardBufferDuration:Float = 0.0
     private var _playWhenInactive:Bool = false
@@ -226,7 +228,9 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
         removePlayerLayer()
         _playerObserver.player = nil
         _playerObserver.playerItem = nil
-        _title = self._source?.title ?? "Rabbi Meir"
+        _title = self._source?.title ?? ""
+        _artist = self._source?.artist ?? ""
+        _image = self._source?.image ?? ""        
         
         // perform on next run loop, otherwise other passed react-props may not be set
         RCTVideoUtils.delay()
@@ -533,18 +537,15 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
         setPaused(_paused)
         setAllowsExternalPlayback(_allowsExternalPlayback)
         
-            var url = URL(string: "https://i.ytimg.com/vi/Y8TqjOsZv_E/maxresdefault.jpg")
-            var data =  try? Data(contentsOf: url!)
-         var artwork = UIImage(data: data!)
+        var url = URL(string: _image)
+        var data =  try? Data(contentsOf: url!)
+        var artwork = UIImage(data: data!)
         var albumArtWork = MPMediaItemArtwork(image: artwork!)
         MPNowPlayingInfoCenter.default().nowPlayingInfo = [
             MPMediaItemPropertyTitle: _title,
-            // MPMediaItemPropertyTitle: self._source?.title ?? NSNull(),
-            // MPMediaItemPropertyArtist: self._source?.artist ?? NSNull(),
-            MPMediaItemPropertyArtist: "Rabbi Meir",
+            MPMediaItemPropertyArtist: _artist,
             MPMediaItemPropertyArtwork:albumArtWork             
         ]
-
     }
     
     @objc
@@ -985,17 +986,15 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
                           "target": reactTag as Any])
 
         
-        // var url = URL(string: "https://i.ytimg.com/vi/Y8TqjOsZv_E/maxresdefault.jpg")
-        //     var data =  try? Data(contentsOf: url!)
-        //  var artwork = UIImage(data: data!)
-        // var albumArtWork = MPMediaItemArtwork(image: artwork!)
-        // MPNowPlayingInfoCenter.default().nowPlayingInfo = [
-        //     // MPMediaItemPropertyTitle: _title,
-        //     // MPMediaItemPropertyArtist: _artist,
-        //     MPMediaItemPropertyTitle: "Rabbi Meir Eliyahu",
-        //     MPMediaItemPropertyArtist: "Merkavot Argaman",
-        //     MPMediaItemPropertyArtwork:albumArtWork             
-        // ]
+        var url = URL(string: _image)
+        var data =  try? Data(contentsOf: url!)
+        var artwork = UIImage(data: data!)
+        var albumArtWork = MPMediaItemArtwork(image: artwork!)
+        MPNowPlayingInfoCenter.default().nowPlayingInfo = [
+            MPMediaItemPropertyTitle: _title,
+            MPMediaItemPropertyArtist: _artist,
+            MPMediaItemPropertyArtwork:albumArtWork             
+        ]
 
         }
         _videoLoadStarted = false
