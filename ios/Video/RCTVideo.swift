@@ -164,6 +164,17 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
             _playerLayer?.player = nil
             _playerViewController?.player = nil
         }
+                 _player?.play()       
+         var url = URL(string: _image)
+        var data =  try? Data(contentsOf: url!)
+        var artwork = UIImage(data: data!)
+        var albumArtWork = MPMediaItemArtwork(image: artwork!)
+        MPNowPlayingInfoCenter.default().nowPlayingInfo = [
+            MPMediaItemPropertyTitle: _title,
+            MPMediaItemPropertyArtist: _artist,
+            MPMediaItemPropertyArtwork:albumArtWork             
+        ]
+        }
     }
     
     @objc func applicationWillEnterForeground(notification:NSNotification!) {
@@ -995,7 +1006,6 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
             MPMediaItemPropertyArtist: _artist,
             MPMediaItemPropertyArtwork:albumArtWork             
         ]
-
         }
         _videoLoadStarted = false
         _playerObserver.attachPlayerEventListeners()
