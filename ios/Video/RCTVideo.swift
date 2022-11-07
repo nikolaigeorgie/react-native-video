@@ -174,7 +174,7 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
             MPMediaItemPropertyArtist: _artist,
             MPMediaItemPropertyArtwork:albumArtWork             
         ]
-        }
+        
     }
     
     @objc func applicationWillEnterForeground(notification:NSNotification!) {
