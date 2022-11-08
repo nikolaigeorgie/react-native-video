@@ -105,13 +105,13 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
         
         _eventDispatcher = eventDispatcher
 
-         var url = URL(string: _image)
+         var url = URL(string: self._image)
         var data =  try? Data(contentsOf: url!)
         var artwork = UIImage(data: data!)
         var albumArtWork = MPMediaItemArtwork(image: artwork!)
         MPNowPlayingInfoCenter.default().nowPlayingInfo = [
-            MPMediaItemPropertyTitle: _title,
-            MPMediaItemPropertyArtist: _artist,
+            MPMediaItemPropertyTitle: self._title,
+            MPMediaItemPropertyArtist: self._artist,
             MPMediaItemPropertyArtwork:albumArtWork             
         ]
         
