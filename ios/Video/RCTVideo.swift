@@ -104,16 +104,6 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
         super.init(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
         
         _eventDispatcher = eventDispatcher
-
-        //  var url = URL(string: self._image)
-        // var data =  try? Data(contentsOf: url!)
-        // var artwork = UIImage(data: data!)
-        // var albumArtWork = MPMediaItemArtwork(image: artwork!)
-        // MPNowPlayingInfoCenter.default().nowPlayingInfo = [
-        //     MPMediaItemPropertyTitle: self._title,
-        //     MPMediaItemPropertyArtist: self._artist,
-        //     MPMediaItemPropertyArtwork:albumArtWork             
-        // ]
         
         NotificationCenter.default.addObserver(
             self,
@@ -174,16 +164,7 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
             _playerLayer?.player = nil
             _playerViewController?.player = nil
         }
-                 _player?.play()  
-                  var url = URL(string: _image)
-        var data =  try? Data(contentsOf: url!)
-        var artwork = UIImage(data: data!)
-        var albumArtWork = MPMediaItemArtwork(image: artwork!)
-        MPNowPlayingInfoCenter.default().nowPlayingInfo = [
-            MPMediaItemPropertyTitle: _title,
-            MPMediaItemPropertyArtist: _artist,
-            MPMediaItemPropertyArtwork:albumArtWork             
-        ]             
+                 _player?.play()               
     }
     
     @objc func applicationWillEnterForeground(notification:NSNotification!) {
@@ -324,17 +305,7 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
                     ],
                     "drm": self._drm?.json ?? NSNull(),
                     "target": self.reactTag
-                ])
-
-                 var url = URL(string: _image)
-        var data =  try? Data(contentsOf: url!)
-        var artwork = UIImage(data: data!)
-        var albumArtWork = MPMediaItemArtwork(image: artwork!)
-        MPNowPlayingInfoCenter.default().nowPlayingInfo = [
-            MPMediaItemPropertyTitle: _title,
-            MPMediaItemPropertyArtist: _artist,
-            MPMediaItemPropertyArtwork:albumArtWork             
-        ]
+                ])       
         
             }.catch{_ in }
         _videoLoadStarted = true
@@ -566,6 +537,16 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
         setControls(_controls)
         setPaused(_paused)
         setAllowsExternalPlayback(_allowsExternalPlayback)
+
+        var url = URL(string: _image)
+        var data =  try? Data(contentsOf: url!)
+        var artwork = UIImage(data: data!)
+        var albumArtWork = MPMediaItemArtwork(image: artwork!)
+        MPNowPlayingInfoCenter.default().nowPlayingInfo = [
+            MPMediaItemPropertyTitle: _title,
+            MPMediaItemPropertyArtist: _artist,
+            MPMediaItemPropertyArtwork:albumArtWork             
+        ]
     }
     
     @objc
@@ -692,16 +673,6 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
         }
         
         _playerObserver.playerViewController = _playerViewController
-
-         var url = URL(string: _image)
-        var data =  try? Data(contentsOf: url!)
-        var artwork = UIImage(data: data!)
-        var albumArtWork = MPMediaItemArtwork(image: artwork!)
-        MPNowPlayingInfoCenter.default().nowPlayingInfo = [
-            MPMediaItemPropertyTitle: _title,
-            MPMediaItemPropertyArtist: _artist,
-            MPMediaItemPropertyArtwork:albumArtWork             
-        ]
     }
     
     func createPlayerViewController(player:AVPlayer, withPlayerItem playerItem:AVPlayerItem) -> RCTVideoPlayerViewController {
@@ -712,6 +683,17 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
         
         viewController.view.frame = self.bounds
         viewController.player = player
+
+            var url = URL(string: _image)
+        var data =  try? Data(contentsOf: url!)
+        var artwork = UIImage(data: data!)
+        var albumArtWork = MPMediaItemArtwork(image: artwork!)
+        MPNowPlayingInfoCenter.default().nowPlayingInfo = [
+            MPMediaItemPropertyTitle: _title,
+            MPMediaItemPropertyArtist: _artist,
+            MPMediaItemPropertyArtwork:albumArtWork             
+        ]
+
         return viewController
     }
     
