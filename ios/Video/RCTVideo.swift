@@ -164,7 +164,18 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
             _playerLayer?.player = nil
             _playerViewController?.player = nil
         }
-                 _player?.play()               
+                 _player?.play()     
+
+
+                    // var url = URL(string: _image)
+        // var data =  try? Data(contentsOf: url!)
+        // var artwork = UIImage(data: data!)
+        // var albumArtWork = MPMediaItemArtwork(image: artwork!)
+        MPNowPlayingInfoCenter.default().nowPlayingInfo = [
+            MPMediaItemPropertyTitle: _title,
+            MPMediaItemPropertyArtist: _artist,
+            // MPMediaItemPropertyArtwork:albumArtWork             
+        ]          
     }
     
     @objc func applicationWillEnterForeground(notification:NSNotification!) {
@@ -287,6 +298,15 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
                 self._player = AVPlayer()
                 DispatchQueue.global(qos: .default).async {
                     self._player?.replaceCurrentItem(with: playerItem)
+                              // var url = URL(string: _image)
+        // var data =  try? Data(contentsOf: url!)
+        // var artwork = UIImage(data: data!)
+        // var albumArtWork = MPMediaItemArtwork(image: artwork!)
+        MPNowPlayingInfoCenter.default().nowPlayingInfo = [
+            MPMediaItemPropertyTitle: _title,
+            MPMediaItemPropertyArtist: _artist,
+            // MPMediaItemPropertyArtwork:albumArtWork             
+        ]
                 }
                 self._playerObserver.player = self._player
                 self.applyModifiers()
@@ -419,6 +439,15 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
             _player?.rate = _rate
         }
         
+                  // var url = URL(string: _image)
+        // var data =  try? Data(contentsOf: url!)
+        // var artwork = UIImage(data: data!)
+        // var albumArtWork = MPMediaItemArtwork(image: artwork!)
+        MPNowPlayingInfoCenter.default().nowPlayingInfo = [
+            MPMediaItemPropertyTitle: _title,
+            MPMediaItemPropertyArtist: _artist,
+            // MPMediaItemPropertyArtwork:albumArtWork             
+        ]
         _paused = paused
     }
     
@@ -537,16 +566,6 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
         setControls(_controls)
         setPaused(_paused)
         setAllowsExternalPlayback(_allowsExternalPlayback)
-
-        var url = URL(string: _image)
-        var data =  try? Data(contentsOf: url!)
-        var artwork = UIImage(data: data!)
-        var albumArtWork = MPMediaItemArtwork(image: artwork!)
-        MPNowPlayingInfoCenter.default().nowPlayingInfo = [
-            MPMediaItemPropertyTitle: _title,
-            MPMediaItemPropertyArtist: _artist,
-            MPMediaItemPropertyArtwork:albumArtWork             
-        ]
     }
     
     @objc
@@ -683,16 +702,6 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
         
         viewController.view.frame = self.bounds
         viewController.player = player
-
-            var url = URL(string: _image)
-        var data =  try? Data(contentsOf: url!)
-        var artwork = UIImage(data: data!)
-        var albumArtWork = MPMediaItemArtwork(image: artwork!)
-        MPNowPlayingInfoCenter.default().nowPlayingInfo = [
-            MPMediaItemPropertyTitle: _title,
-            MPMediaItemPropertyArtist: _artist,
-            MPMediaItemPropertyArtwork:albumArtWork             
-        ]
 
         return viewController
     }
@@ -1031,6 +1040,7 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
         }
         _playerBufferEmpty = false
         onVideoBuffer?(["isBuffering": false, "target": reactTag as Any])
+
     }
     
     func handlePlaybackRateChange(player: AVPlayer, change: NSKeyValueObservedChange<Float>) {
