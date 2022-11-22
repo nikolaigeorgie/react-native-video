@@ -171,11 +171,16 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
         // var data =  try? Data(contentsOf: url!)
         // var artwork = UIImage(data: data!)
         // var albumArtWork = MPMediaItemArtwork(image: artwork!)
-        MPNowPlayingInfoCenter.default().nowPlayingInfo = [
-            MPMediaItemPropertyTitle: _title,
-            MPMediaItemPropertyArtist: _artist,
+        // MPNowPlayingInfoCenter.default().nowPlayingInfo = [
+        //     MPMediaItemPropertyTitle: _title,
+        //     MPMediaItemPropertyArtist: _artist,
+        //     // MPMediaItemPropertyArtwork:albumArtWork             
+        // ]       
+                MPNowPlayingInfoCenter.default().nowPlayingInfo = [
+            MPMediaItemPropertyTitle: "Merkavot argaman",
+            MPMediaItemPropertyArtist: "Rabbi meir eliyahu",
             // MPMediaItemPropertyArtwork:albumArtWork             
-        ]          
+        ]   
     }
     
     @objc func applicationWillEnterForeground(notification:NSNotification!) {
@@ -303,8 +308,8 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
         // var artwork = UIImage(data: data!)
         // var albumArtWork = MPMediaItemArtwork(image: artwork!)
         MPNowPlayingInfoCenter.default().nowPlayingInfo = [
-            MPMediaItemPropertyTitle: _title,
-            MPMediaItemPropertyArtist: _artist,
+            MPMediaItemPropertyTitle: "Merkavot argaman",
+            MPMediaItemPropertyArtist: "Rabbi meir eliyahu",
             // MPMediaItemPropertyArtwork:albumArtWork             
         ]
                 }
@@ -443,9 +448,14 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
         // var data =  try? Data(contentsOf: url!)
         // var artwork = UIImage(data: data!)
         // var albumArtWork = MPMediaItemArtwork(image: artwork!)
-        MPNowPlayingInfoCenter.default().nowPlayingInfo = [
-            MPMediaItemPropertyTitle: _title,
-            MPMediaItemPropertyArtist: _artist,
+        // MPNowPlayingInfoCenter.default().nowPlayingInfo = [
+        //     MPMediaItemPropertyTitle: _title,
+        //     MPMediaItemPropertyArtist: _artist,
+        //     // MPMediaItemPropertyArtwork:albumArtWork             
+        // ]
+                MPNowPlayingInfoCenter.default().nowPlayingInfo = [
+            MPMediaItemPropertyTitle: "Merkavot argaman",
+            MPMediaItemPropertyArtist: "Rabbi meir eliyahu",
             // MPMediaItemPropertyArtwork:albumArtWork             
         ]
         _paused = paused
