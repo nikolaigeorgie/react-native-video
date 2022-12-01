@@ -121,6 +121,13 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
         
         NotificationCenter.default.addObserver(
             self,
+            selector: #selector(avPlayerPlayAndRecord(notification:)),
+            name: AVAudioSession.playAndRecord,
+            object: nil
+        )
+
+        NotificationCenter.default.addObserver(
+            self,
             selector: #selector(applicationWillEnterForeground(notification:)),
             name: UIApplication.willEnterForegroundNotification,
             object: nil
@@ -159,23 +166,28 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
     }
     
     @objc func applicationDidEnterBackground(notification:NSNotification!) {
-        if _playInBackground {
-            // Needed to play sound in background. See https://developer.apple.com/library/ios/qa/qa1668/_index.html
-            _playerLayer?.player = nil
-            _playerViewController?.player = nil
-        }
-                 _player?.play()     
+        // if _playInBackground {
+        //     // Needed to play sound in background. See https://developer.apple.com/library/ios/qa/qa1668/_index.html
+        //     _playerLayer?.player = nil
+        //     _playerViewController?.player = nil
+        // }
+                //  _player?.play()          
+    }
 
-
-                    // var url = URL(string: _image)
-        // var data =  try? Data(contentsOf: url!)
+   @objc func avPlayerPlayAndRecord(notification:NSNotification!) {
+        //             var data =  try? Data(contentsOf: url!)
         // var artwork = UIImage(data: data!)
         // var albumArtWork = MPMediaItemArtwork(image: artwork!)
+        //      MPNowPlayingInfoCenter.default().nowPlayingInfo = [
+        //     MPMediaItemPropertyTitle: _title,
+        //     MPMediaItemPropertyArtist: _artist,
+        //     // MPMediaItemPropertyArtwork:albumArtWork             
+        // ]       
         MPNowPlayingInfoCenter.default().nowPlayingInfo = [
-            MPMediaItemPropertyTitle: _title,
-            MPMediaItemPropertyArtist: _artist,
+            MPMediaItemPropertyTitle: "Merkavot argaman",
+            MPMediaItemPropertyArtist: "Rabbi meir eliyahu",
             // MPMediaItemPropertyArtwork:albumArtWork             
-        ]          
+        ]             
     }
     
     @objc func applicationWillEnterForeground(notification:NSNotification!) {
@@ -298,15 +310,6 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
                 self._player = AVPlayer()
                 DispatchQueue.global(qos: .default).async {
                     self._player?.replaceCurrentItem(with: playerItem)
-                              // var url = URL(string: _image)
-        // var data =  try? Data(contentsOf: url!)
-        // var artwork = UIImage(data: data!)
-        // var albumArtWork = MPMediaItemArtwork(image: artwork!)
-        MPNowPlayingInfoCenter.default().nowPlayingInfo = [
-            MPMediaItemPropertyTitle: "Merkavot argaman",
-            MPMediaItemPropertyArtist: "Rabbi meir eliyahu",
-            // MPMediaItemPropertyArtwork:albumArtWork             
-        ]
                 }
                 self._playerObserver.player = self._player
                 self.applyModifiers()
@@ -439,20 +442,6 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
             _player?.rate = _rate
         }
         
-                  // var url = URL(string: _image)
-        // var data =  try? Data(contentsOf: url!)
-        // var artwork = UIImage(data: data!)
-        // var albumArtWork = MPMediaItemArtwork(image: artwork!)
-        // MPNowPlayingInfoCenter.default().nowPlayingInfo = [
-        //     MPMediaItemPropertyTitle: _title,
-        //     MPMediaItemPropertyArtist: _artist,
-        //     // MPMediaItemPropertyArtwork:albumArtWork             
-        // ]
-        //         MPNowPlayingInfoCenter.default().nowPlayingInfo = [
-        //     MPMediaItemPropertyTitle: "Merkavot argaman",
-        //     MPMediaItemPropertyArtist: "Rabbi meir eliyahu",
-        //     // MPMediaItemPropertyArtwork:albumArtWork             
-        // ]
         _paused = paused
     }
     
@@ -494,11 +483,6 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
                                    "seekTime": seekTime,
                                    "target": self.reactTag])
 
-                                   MPNowPlayingInfoCenter.default().nowPlayingInfo = [
-            MPMediaItemPropertyTitle: "Merkavot argaman",
-            MPMediaItemPropertyArtist: "Rabbi meir eliyahu",
-            // MPMediaItemPropertyArtwork:albumArtWork             
-        ]
             }.catch{_ in }
         
         _pendingSeek = false
@@ -577,12 +561,6 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
         setControls(_controls)
         setPaused(_paused)
         setAllowsExternalPlayback(_allowsExternalPlayback)
-
-        MPNowPlayingInfoCenter.default().nowPlayingInfo = [
-            MPMediaItemPropertyTitle: "Merkavot argaman",
-            MPMediaItemPropertyArtist: "Rabbi meir eliyahu",
-            // MPMediaItemPropertyArtwork:albumArtWork             
-        ]
     }
     
     @objc
@@ -985,13 +963,7 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
             width = Float(videoTrack.naturalSize.width)
             height = Float(videoTrack.naturalSize.height)
             let preferredTransform = videoTrack.preferredTransform
-            
-            MPNowPlayingInfoCenter.default().nowPlayingInfo = [
-            MPMediaItemPropertyTitle: "Merkavot argaman",
-            MPMediaItemPropertyArtist: "Rabbi meir eliyahu",
-            // MPMediaItemPropertyArtwork:albumArtWork             
-        ]
-        
+
             if (videoTrack.naturalSize.width == preferredTransform.tx
                 && videoTrack.naturalSize.height == preferredTransform.ty)
                 || (preferredTransform.tx == 0 && preferredTransform.ty == 0)
