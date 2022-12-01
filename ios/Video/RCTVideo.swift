@@ -171,16 +171,11 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
         // var data =  try? Data(contentsOf: url!)
         // var artwork = UIImage(data: data!)
         // var albumArtWork = MPMediaItemArtwork(image: artwork!)
-        // MPNowPlayingInfoCenter.default().nowPlayingInfo = [
-        //     MPMediaItemPropertyTitle: _title,
-        //     MPMediaItemPropertyArtist: _artist,
-        //     // MPMediaItemPropertyArtwork:albumArtWork             
-        // ]       
-                MPNowPlayingInfoCenter.default().nowPlayingInfo = [
-            MPMediaItemPropertyTitle: "Merkavot argaman",
-            MPMediaItemPropertyArtist: "Rabbi meir eliyahu",
+        MPNowPlayingInfoCenter.default().nowPlayingInfo = [
+            MPMediaItemPropertyTitle: _title,
+            MPMediaItemPropertyArtist: _artist,
             // MPMediaItemPropertyArtwork:albumArtWork             
-        ]   
+        ]          
     }
     
     @objc func applicationWillEnterForeground(notification:NSNotification!) {
@@ -453,11 +448,11 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
         //     MPMediaItemPropertyArtist: _artist,
         //     // MPMediaItemPropertyArtwork:albumArtWork             
         // ]
-                MPNowPlayingInfoCenter.default().nowPlayingInfo = [
-            MPMediaItemPropertyTitle: "Merkavot argaman",
-            MPMediaItemPropertyArtist: "Rabbi meir eliyahu",
-            // MPMediaItemPropertyArtwork:albumArtWork             
-        ]
+        //         MPNowPlayingInfoCenter.default().nowPlayingInfo = [
+        //     MPMediaItemPropertyTitle: "Merkavot argaman",
+        //     MPMediaItemPropertyArtist: "Rabbi meir eliyahu",
+        //     // MPMediaItemPropertyArtwork:albumArtWork             
+        // ]
         _paused = paused
     }
     
@@ -498,6 +493,12 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
                 self.onVideoSeek?(["currentTime": NSNumber(value: Float(CMTimeGetSeconds(item.currentTime()))),
                                    "seekTime": seekTime,
                                    "target": self.reactTag])
+
+                                   MPNowPlayingInfoCenter.default().nowPlayingInfo = [
+            MPMediaItemPropertyTitle: "Merkavot argaman",
+            MPMediaItemPropertyArtist: "Rabbi meir eliyahu",
+            // MPMediaItemPropertyArtwork:albumArtWork             
+        ]
             }.catch{_ in }
         
         _pendingSeek = false
@@ -576,6 +577,12 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
         setControls(_controls)
         setPaused(_paused)
         setAllowsExternalPlayback(_allowsExternalPlayback)
+
+        MPNowPlayingInfoCenter.default().nowPlayingInfo = [
+            MPMediaItemPropertyTitle: "Merkavot argaman",
+            MPMediaItemPropertyArtist: "Rabbi meir eliyahu",
+            // MPMediaItemPropertyArtwork:albumArtWork             
+        ]
     }
     
     @objc
@@ -979,6 +986,12 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
             height = Float(videoTrack.naturalSize.height)
             let preferredTransform = videoTrack.preferredTransform
             
+            MPNowPlayingInfoCenter.default().nowPlayingInfo = [
+            MPMediaItemPropertyTitle: "Merkavot argaman",
+            MPMediaItemPropertyArtist: "Rabbi meir eliyahu",
+            // MPMediaItemPropertyArtwork:albumArtWork             
+        ]
+        
             if (videoTrack.naturalSize.width == preferredTransform.tx
                 && videoTrack.naturalSize.height == preferredTransform.ty)
                 || (preferredTransform.tx == 0 && preferredTransform.ty == 0)
