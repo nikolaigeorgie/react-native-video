@@ -356,7 +356,8 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
         }
         
         // AVPlayer can't airplay AVMutableCompositions
-        _allowsExternalPlayback = false
+        _allowsExternalPlayback = true
+
         let mixComposition = RCTVideoUtils.generateMixComposition(asset)
         let validTextTracks = RCTVideoUtils.getValidTextTracks(
             asset:asset,
@@ -699,6 +700,7 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
         let viewController = RCTVideoPlayerViewController()
         viewController.showsPlaybackControls = true
         viewController.rctDelegate = self
+        viewController.updatesNowPlayingInfoCenter = false
         viewController.preferredOrientation = _fullscreenOrientation
         
         viewController.view.frame = self.bounds
