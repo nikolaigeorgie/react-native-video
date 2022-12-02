@@ -133,12 +133,12 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
             object: nil
         )
         
-        // NotificationCenter.default.addObserver(
-        //     self,
-        //     selector: #selector(audioRouteChanged(notification:)),
-        //     name: AVAudioSession.routeChangeNotification,
-        //     object: nil
-        // )
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(audioRouteChanged(notification:)),
+            name: AVAudioSession.routeChangeNotification,
+            object: nil
+        )
         
         _playerObserver._handlers = self
 #if canImport(RCTVideoCache)
@@ -191,11 +191,11 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
     }
     
     @objc func applicationWillEnterForeground(notification:NSNotification!) {
-        // self.applyModifiers()
-        // if _playInBackground {
-        //     _playerLayer?.player = _player
-        //     _playerViewController?.player = _player
-        // }
+        self.applyModifiers()
+        if _playInBackground {
+            _playerLayer?.player = _player
+            _playerViewController?.player = _player
+        }
     }
     
     // MARK: - Audio events
@@ -429,7 +429,7 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
     func setPaused(_ paused:Bool) {
         if paused {
             _player?.pause()
-            // _player?.rate = 0.0
+            _player?.rate = 0.0
         } else {
             RCTPlayerOperations.configureAudio(ignoreSilentSwitch:_ignoreSilentSwitch, mixWithOthers:_mixWithOthers)
             
