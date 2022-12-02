@@ -335,6 +335,8 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
                     MPMediaItemPropertyTitle: "Merkavot argaman",
                     MPMediaItemPropertyArtist: "Rabbi meir eliyahu",
                 ]
+
+                UIApplication.shared.beginReceivingRemoteControlEvents()
         
             }.catch{_ in }
         _videoLoadStarted = true
