@@ -112,33 +112,33 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
             object: nil
         )
         
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(applicationDidEnterBackground(notification:)),
-            name: UIApplication.didEnterBackgroundNotification,
-            object: nil
-        )
+        // NotificationCenter.default.addObserver(
+        //     self,
+        //     selector: #selector(applicationDidEnterBackground(notification:)),
+        //     name: UIApplication.didEnterBackgroundNotification,
+        //     object: nil
+        // )
         
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(avPlayerPlayAndRecord(notification:)),
-            name: AVAudioSession.playAndRecord,
-            object: nil
-        )
+        // NotificationCenter.default.addObserver(
+        //     self,
+        //     selector: #selector(avPlayerPlayAndRecord(notification:)),
+        //     name: AVAudioSession.playAndRecord,
+        //     object: nil
+        // )
 
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(applicationWillEnterForeground(notification:)),
-            name: UIApplication.willEnterForegroundNotification,
-            object: nil
-        )
+        // NotificationCenter.default.addObserver(
+        //     self,
+        //     selector: #selector(applicationWillEnterForeground(notification:)),
+        //     name: UIApplication.willEnterForegroundNotification,
+        //     object: nil
+        // )
         
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(audioRouteChanged(notification:)),
-            name: AVAudioSession.routeChangeNotification,
-            object: nil
-        )
+        // NotificationCenter.default.addObserver(
+        //     self,
+        //     selector: #selector(audioRouteChanged(notification:)),
+        //     name: AVAudioSession.routeChangeNotification,
+        //     object: nil
+        // )
         
         _playerObserver._handlers = self
 #if canImport(RCTVideoCache)
@@ -329,6 +329,12 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
                     "drm": self._drm?.json ?? NSNull(),
                     "target": self.reactTag
                 ])       
+
+
+                MPNowPlayingInfoCenter.default().nowPlayingInfo = [
+                    MPMediaItemPropertyTitle: "Merkavot argaman",
+                    MPMediaItemPropertyArtist: "Rabbi meir eliyahu",
+                ]
         
             }.catch{_ in }
         _videoLoadStarted = true
@@ -429,7 +435,7 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
     func setPaused(_ paused:Bool) {
         if paused {
             _player?.pause()
-            _player?.rate = 0.0
+            // _player?.rate = 0.0
         } else {
             RCTPlayerOperations.configureAudio(ignoreSilentSwitch:_ignoreSilentSwitch, mixWithOthers:_mixWithOthers)
             
@@ -437,9 +443,9 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
                 _player?.playImmediately(atRate: _rate)
             } else {
                 _player?.play()
-                _player?.rate = _rate
+                // _player?.rate = _rate
             }
-            _player?.rate = _rate
+            // _player?.rate = _rate
         }
         
         _paused = paused
