@@ -112,12 +112,12 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
             object: nil
         )
         
-        // NotificationCenter.default.addObserver(
-        //     self,
-        //     selector: #selector(applicationDidEnterBackground(notification:)),
-        //     name: UIApplication.didEnterBackgroundNotification,
-        //     object: nil
-        // )
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(applicationDidEnterBackground(notification:)),
+            name: UIApplication.didEnterBackgroundNotification,
+            object: nil
+        )
 
         NotificationCenter.default.addObserver(
             self,
@@ -159,12 +159,18 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
     }
     
     @objc func applicationDidEnterBackground(notification:NSNotification!) {
-        // if _playInBackground {
-        //     // Needed to play sound in background. See https://developer.apple.com/library/ios/qa/qa1668/_index.html
-        //     _playerLayer?.player = nil
-        //     _playerViewController?.player = nil
-        // }
-                //  _player?.play()          
+        if _playInBackground {
+            // Needed to play sound in background. See https://developer.apple.com/library/ios/qa/qa1668/_index.html
+            _playerLayer?.player = nil
+            _playerViewController?.player = nil
+        }
+                 _player?.play()          
+
+                  MPNowPlayingInfoCenter.default().nowPlayingInfo = [
+            MPMediaItemPropertyTitle: "Merkavot argaman",
+            MPMediaItemPropertyArtist: "Rabbi meir eliyahu",
+            // MPMediaItemPropertyArtwork:albumArtWork             
+        ]      
     }
 
    @objc func avPlayerPlayAndRecord(notification:NSNotification!) {
