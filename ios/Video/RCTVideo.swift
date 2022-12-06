@@ -314,20 +314,15 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
                 ])       
 
 
-        //     var url = URL(string: _image)
-        // var data =  try? Data(contentsOf: url!)
-        // var artwork = UIImage(data: data!)
-        // var albumArtWork = MPMediaItemArtwork(image: artwork!)
-        // MPNowPlayingInfoCenter.default().nowPlayingInfo = [
-        //     MPMediaItemPropertyTitle: _title,
-        //     MPMediaItemPropertyArtist: _artist,
-        //     MPMediaItemPropertyArtwork:albumArtWork             
-        // ]       
+        var url = URL(string: _image)
+        var data =  try? Data(contentsOf: url!)
+        var artwork = UIImage(data: data!)
+        var albumArtWork = MPMediaItemArtwork(image: artwork!)
         MPNowPlayingInfoCenter.default().nowPlayingInfo = [
-            MPMediaItemPropertyTitle: "Merkavot argaman",
-            MPMediaItemPropertyArtist: "Rabbi meir eliyahu",
-        ] 
-
+            MPMediaItemPropertyTitle: _title,
+            MPMediaItemPropertyArtist: _artist,
+            MPMediaItemPropertyArtwork:albumArtWork             
+        ]       
                 UIApplication.shared.beginReceivingRemoteControlEvents()
         
             }.catch{_ in }
