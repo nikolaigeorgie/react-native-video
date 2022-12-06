@@ -126,12 +126,12 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
             object: nil
         )
         
-        // NotificationCenter.default.addObserver(
-        //     self,
-        //     selector: #selector(audioRouteChanged(notification:)),
-        //     name: AVAudioSession.routeChangeNotification,
-        //     object: nil
-        // )
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(audioRouteChanged(notification:)),
+            name: AVAudioSession.routeChangeNotification,
+            object: nil
+        )
         
         _playerObserver._handlers = self
 #if canImport(RCTVideoCache)
@@ -171,22 +171,6 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
             MPMediaItemPropertyArtist: "Rabbi meir eliyahu",
             // MPMediaItemPropertyArtwork:albumArtWork             
         ]      
-    }
-
-   @objc func avPlayerPlayAndRecord(notification:NSNotification!) {
-        //             var data =  try? Data(contentsOf: url!)
-        // var artwork = UIImage(data: data!)
-        // var albumArtWork = MPMediaItemArtwork(image: artwork!)
-        //      MPNowPlayingInfoCenter.default().nowPlayingInfo = [
-        //     MPMediaItemPropertyTitle: _title,
-        //     MPMediaItemPropertyArtist: _artist,
-        //     // MPMediaItemPropertyArtwork:albumArtWork             
-        // ]       
-        MPNowPlayingInfoCenter.default().nowPlayingInfo = [
-            MPMediaItemPropertyTitle: "Merkavot argaman",
-            MPMediaItemPropertyArtist: "Rabbi meir eliyahu",
-            // MPMediaItemPropertyArtwork:albumArtWork             
-        ]             
     }
     
     @objc func applicationWillEnterForeground(notification:NSNotification!) {
@@ -330,10 +314,19 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
                 ])       
 
 
-                MPNowPlayingInfoCenter.default().nowPlayingInfo = [
-                    MPMediaItemPropertyTitle: "Merkavot argaman",
-                    MPMediaItemPropertyArtist: "Rabbi meir eliyahu",
-                ]
+        //     var url = URL(string: _image)
+        // var data =  try? Data(contentsOf: url!)
+        // var artwork = UIImage(data: data!)
+        // var albumArtWork = MPMediaItemArtwork(image: artwork!)
+        // MPNowPlayingInfoCenter.default().nowPlayingInfo = [
+        //     MPMediaItemPropertyTitle: _title,
+        //     MPMediaItemPropertyArtist: _artist,
+        //     MPMediaItemPropertyArtwork:albumArtWork             
+        // ]       
+        MPNowPlayingInfoCenter.default().nowPlayingInfo = [
+            MPMediaItemPropertyTitle: "Merkavot argaman",
+            MPMediaItemPropertyArtist: "Rabbi meir eliyahu",
+        ] 
 
                 UIApplication.shared.beginReceivingRemoteControlEvents()
         
