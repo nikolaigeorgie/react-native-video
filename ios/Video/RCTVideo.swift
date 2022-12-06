@@ -118,20 +118,13 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
         //     name: UIApplication.didEnterBackgroundNotification,
         //     object: nil
         // )
-        
-        // NotificationCenter.default.addObserver(
-        //     self,
-        //     selector: #selector(avPlayerPlayAndRecord(notification:)),
-        //     name: AVAudioSession.playAndRecord,
-        //     object: nil
-        // )
 
-        // NotificationCenter.default.addObserver(
-        //     self,
-        //     selector: #selector(applicationWillEnterForeground(notification:)),
-        //     name: UIApplication.willEnterForegroundNotification,
-        //     object: nil
-        // )
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(applicationWillEnterForeground(notification:)),
+            name: UIApplication.willEnterForegroundNotification,
+            object: nil
+        )
         
         // NotificationCenter.default.addObserver(
         //     self,
