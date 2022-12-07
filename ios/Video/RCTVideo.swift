@@ -315,20 +315,15 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
 
 
 
-        // MPNowPlayingInfoCenter.default().nowPlayingInfo = [
-        //     MPMediaItemPropertyTitle: _title,
-        //     MPMediaItemPropertyArtist: _artist,
-        //     MPMediaItemPropertyArtwork:albumArtWork             
-        // ]       
 
-        //             var url = URL(string: self._image)
-        // var data =  try? Data(contentsOf: url!)
-        // var artwork = UIImage(data: data!)
-        // var albumArtWork = MPMediaItemArtwork(image: artwork!)
+        var url = URL(string: self._image)
+        var data =  try? Data(contentsOf: url!)
+        var artwork = UIImage(data: data!)
+        var albumArtWork = MPMediaItemArtwork(image: artwork!)
         MPNowPlayingInfoCenter.default().nowPlayingInfo = [
             MPMediaItemPropertyTitle: self._title,
             MPMediaItemPropertyArtist: self._artist,
-            // MPMediaItemPropertyArtwork:albumArtWork
+            MPMediaItemPropertyArtwork:albumArtWork
         ] 
 
                 UIApplication.shared.beginReceivingRemoteControlEvents()
