@@ -320,11 +320,27 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
             MPMediaItemPropertyArtwork:albumArtWork
         ] 
 
-                // UIApplication.shared.beginReceivingRemoteControlEvents()
-        try! AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, withOptions: [])
-    try! AVAudioSession.sharedInstance().setActive(true)
+        MPRemoteCommandCenter.shared().playCommand.isEnabled = true
+        MPRemoteCommandCenter.shared().playCommand.addTarget(self, action: #selector(playCommand))
+        MPRemoteCommandCenter.shared().pauseCommand.isEnabled = true
+        MPRemoteCommandCenter.shared().pauseCommand.addTarget(self, action: #selector(pauseCommand))
+        UIApplication.shared.beginReceivingRemoteControlEvents()
+    //     try! AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, withOptions: [])
+    // try! AVAudioSession.sharedInstance().setActive(true)
             }.catch{_ in }
         _videoLoadStarted = true
+    }
+
+    @objc
+    func playCommand() {
+         _player?.play()    
+        _paused = false
+    }
+
+    @objc
+    func pauseCommand() {
+         _player?.pause()    
+        _paused = true
     }
     
     @objc
