@@ -321,9 +321,9 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
         ] 
 
         MPRemoteCommandCenter.shared().playCommand.isEnabled = true
-        MPRemoteCommandCenter.shared().playCommand.addTarget(self, action: #selector(playCommand))
+        MPRemoteCommandCenter.shared().playCommand.addTarget(self, action: #selector(self.playCommand))
         MPRemoteCommandCenter.shared().pauseCommand.isEnabled = true
-        MPRemoteCommandCenter.shared().pauseCommand.addTarget(self, action: #selector(pauseCommand))
+        MPRemoteCommandCenter.shared().pauseCommand.addTarget(self, action: #selector(self.pauseCommand))
         UIApplication.shared.beginReceivingRemoteControlEvents()
     //     try! AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, withOptions: [])
     // try! AVAudioSession.sharedInstance().setActive(true)
