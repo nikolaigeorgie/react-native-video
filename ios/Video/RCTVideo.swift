@@ -320,10 +320,39 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
             MPMediaItemPropertyArtwork:albumArtWork
         ] 
 
-        MPRemoteCommandCenter.shared().playCommand.isEnabled = true
-        MPRemoteCommandCenter.shared().playCommand.addTarget(self, action: #selector(self.playCommand()))
-        MPRemoteCommandCenter.shared().pauseCommand.isEnabled = true
-        MPRemoteCommandCenter.shared().pauseCommand.addTarget(self, action: #selector(self.pauseCommand()))
+        let commandCenter = MPRemoteCommandCenter.shared()
+                commandCenter.skipBackwardCommand.isEnabled = false
+                commandCenter.skipForwardCommand.isEnabled = false
+                commandCenter.playCommand.isEnabled = true
+                commandCenter.pauseCommand.isEnabled = true
+                commandCenter.previousTrackCommand.isEnabled = true
+                commandCenter.nextTrackCommand.isEnabled = true
+                commandCenter.stopCommand.isEnabled = true
+        commandCenter.playCommand.addTarget { [unowned self] event in
+//                           if self.player.rate == 1.0 {
+            self._player?.play()
+            self._paused = false
+            return .success
+//                           }
+//                           return .commandFailed
+        }
+
+                       // Add handler for Pause Command
+        commandCenter.pauseCommand.addTarget { [unowned self] event in
+//                           if self.player.rate == 1.0 {
+            self._player?.pause()
+            self._paused = false
+
+            return .success
+//                           }
+//                           return .commandFailed
+        }
+                //        MPRemoteCommandCenter.shared().playCommand.isEnabled = true
+//                MPRemoteCommandCenter.shared().playCommand.addTarget(self, action: #selector(self.playCommand))
+//        MPRemoteCommandCenter.shared().pauseCommand.isEnabled = true
+//                MPRemoteCommandCenter.shared().pauseCommand.addTarget(self, action: #selector(self.pauseCommand))
+                
+                
         UIApplication.shared.beginReceivingRemoteControlEvents()
     //     try! AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, withOptions: [])
     // try! AVAudioSession.sharedInstance().setActive(true)
@@ -331,18 +360,7 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
         _videoLoadStarted = true
     }
 
-    
-    @objc
-    func playCommand() {
-         _player?.play()    
-        _paused = false
-    }
 
-    @objc
-    func pauseCommand() {
-         _player?.pause()    
-        _paused = true
-    }
     
     @objc
     func setDrm(_ drm:NSDictionary) {
