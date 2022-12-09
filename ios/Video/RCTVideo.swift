@@ -152,7 +152,7 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
     // MARK: - App lifecycle handlers
     
     @objc func applicationWillResignActive(notification:NSNotification!) {
-        // if _playInBackground || _playWhenInactive || _paused {return}
+        if _playInBackground || _playWhenInactive || _paused {return}
         
         // _player?.pause()
         // _player?.rate = 0.0
@@ -160,20 +160,20 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
     }
     
     @objc func applicationDidEnterBackground(notification:NSNotification!) {
-        // if _playInBackground {
+        if _playInBackground {
             // Needed to play sound in background. See https://developer.apple.com/library/ios/qa/qa1668/_index.html
             _playerLayer?.player = nil
             _playerViewController?.player = nil
-        // }
+        }
         _player?.play()  
     }
     
     @objc func applicationWillEnterForeground(notification:NSNotification!) {
         self.applyModifiers()
-        // if _playInBackground {
+        if _playInBackground {
             _playerLayer?.player = _player
             _playerViewController?.player = _player
-        // }
+        }
         _player?.play()          
     }
     
