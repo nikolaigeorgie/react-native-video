@@ -460,7 +460,7 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
     func setPaused(_ paused:Bool) {
         if paused {
             _player?.pause()
-            // _player?.rate = 0.0
+            _player?.rate = 0.0
         } else {
             RCTPlayerOperations.configureAudio(ignoreSilentSwitch:_ignoreSilentSwitch, mixWithOthers:_mixWithOthers)
             
@@ -468,9 +468,9 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
                 _player?.playImmediately(atRate: _rate)
             } else {
                 _player?.play()
-                // _player?.rate = _rate
+                _player?.rate = _rate
             }
-            // _player?.rate = _rate
+            _player?.rate = _rate
         }
         
         _paused = paused
