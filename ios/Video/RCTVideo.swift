@@ -312,15 +312,40 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
 
 
 
-        var url = URL(string: self._image)
-        var data =  try? Data(contentsOf: url!)
-        var artwork = UIImage(data: data!)
-        var albumArtWork = MPMediaItemArtwork(image: artwork!)
+ if let url = URL(string: self._image) {
+    do {
+        let data = try Data(contentsOf: url)
+        let artwork = UIImage(data: data)
+        let albumArtwork = MPMediaItemArtwork(image: artwork!)
         MPNowPlayingInfoCenter.default().nowPlayingInfo = [
             MPMediaItemPropertyTitle: self._title,
             MPMediaItemPropertyArtist: self._artist,
-            MPMediaItemPropertyArtwork:albumArtWork
-        ] 
+            MPMediaItemPropertyArtwork: albumArtwork
+        ]
+    } catch let error as NSError {
+        // Handle the error here, e.g. show a placeholder image or log the error
+        if error.code == NSURLErrorNotConnectedToInternet || error.code == NSURLErrorTimedOut {
+            // Show a placeholder image if there is no internet connection or if the request times out
+        } else if error.code != NSURLErrorFileDoesNotExist {
+            // Log the error if it is not a "File does not exist" error
+            print("Error loading artwork image: \(error)")
+        }
+        // Set the nowPlayingInfo dictionary without the artwork
+        MPNowPlayingInfoCenter.default().nowPlayingInfo = [
+            MPMediaItemPropertyTitle: self._title,
+            MPMediaItemPropertyArtist: self._artist
+        ]
+    }
+} else {
+    // Handle the case where the URL is invalid
+    print("Invalid artwork image URL: \(self._image)")
+    // Set the nowPlayingInfo dictionary without the artwork
+    MPNowPlayingInfoCenter.default().nowPlayingInfo = [
+        MPMediaItemPropertyTitle: self._title,
+        MPMediaItemPropertyArtist: self._artist
+    ]
+}
+        
 
         let commandCenter = MPRemoteCommandCenter.shared()
                 commandCenter.skipBackwardCommand.isEnabled = false
@@ -349,15 +374,9 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
 //                           }
 //                           return .commandFailed
         }
-                //        MPRemoteCommandCenter.shared().playCommand.isEnabled = true
-//                MPRemoteCommandCenter.shared().playCommand.addTarget(self, action: #selector(self.playCommand))
-//        MPRemoteCommandCenter.shared().pauseCommand.isEnabled = true
-//                MPRemoteCommandCenter.shared().pauseCommand.addTarget(self, action: #selector(self.pauseCommand))
-                
+
                 
         UIApplication.shared.beginReceivingRemoteControlEvents()
-    //     try! AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, withOptions: [])
-    // try! AVAudioSession.sharedInstance().setActive(true)
             }.catch{_ in }
         _videoLoadStarted = true
     }
